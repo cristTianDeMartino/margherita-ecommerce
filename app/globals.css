@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+/* ─── Google Fonts ─── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ─── Tailwind v4 theme tokens ─── */
+@theme {
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Brand palette – Margherita Ricci logo colors */
+  --color-cream: #F6F3D6; /* Crema Artesanal */
+  --color-cream-dark: #EAE5BE; /* A slightly darker cream */
+  --color-ivory: #FFFFFF; /* Blanco Puro */
+  --color-terracotta: #28642B; /* Verde Margherita */
+  --color-terracotta-light: #378A3B;
+  --color-terracotta-dark: #1A431D;
+  --color-gold: #E6AD26; /* Amarillo Margarita */
+  --color-gold-light: #F7D068;
+  --color-gold-dark: #C9961F;
+  --color-charcoal: #1A1A1A; /* Carbón Elegante */
+  --color-charcoal-light: #333333;
+  --color-warm-gray: #4A4A4A; 
+  --color-warm-gray-light: #999999;
+  --color-olive: #6B7C52;
+  --color-olive-light: #8FA06D;
+  --color-blush: #E8C5B8;
+}
+
+/* ─── Global resets & base styles ─── */
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+/* ─── Utility classes ─── */
+.text-balance { text-wrap: balance; }
+
+/* ─── Navbar ─── */
+.navbar {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+/* ─── Hero shimmer animation ─── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--color-gold-dark) 0%,
+    var(--color-gold-light) 40%,
+    var(--color-gold) 60%,
+    var(--color-gold-dark) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ─── Category card hover effect ─── */
+.category-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.category-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 25px 60px rgba(31, 124, 50, 0.15),
+    0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.category-card .card-image {
+  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.category-card:hover .card-image {
+  transform: scale(1.1);
+}
+
+.category-card .card-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(42, 42, 42, 0.85) 0%,
+    rgba(42, 42, 42, 0.4) 40%,
+    transparent 100%
+  );
+  transition: opacity 0.4s ease;
+}
+
+/* ─── "Bajo pedido" badge pulse ─── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(31, 124, 50, 0.4); }
+  50% { box-shadow: 0 0 16px 4px rgba(31, 124, 50, 0.2); }
+}
+
+.badge-bajo-pedido {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+/* ─── Product detail image ─── */
+.product-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+}
+
+.product-image-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1.25rem;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+
+/* ─── Smooth link underline ─── */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: var(--color-terracotta);
+  transition: width 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ─── Button glow ─── */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 1rem 2.5rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--color-terracotta-light), var(--color-terracotta));
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(31, 124, 50, 0.35);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Fade-in animation ─── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animation-delay-100 { animation-delay: 0.1s; }
+.animation-delay-200 { animation-delay: 0.2s; }
+.animation-delay-300 { animation-delay: 0.3s; }
+.animation-delay-400 { animation-delay: 0.4s; }
+
+/* ─── Footer ─── */
+.footer-gradient {
+  background: linear-gradient(to top, var(--color-charcoal) 0%, #3a3632 100%);
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-cream-dark); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-warm-gray-light);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-warm-gray); }
